@@ -17,6 +17,6 @@ public class BreadTests
         Assert.Equal(1, bread.BreadId);
         Assert.Equal("Hello", bread.Name);
         Assert.Equal("I hate autocorrect", bread.Recipe);
-        Assert.Equal("world", bread.Description);
+        Assert.Equal("World", bread.Description);
     }
 }

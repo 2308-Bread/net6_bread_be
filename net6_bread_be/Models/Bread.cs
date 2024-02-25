@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+
 namespace net6_bread_be.Models
 {
 	public class Bread
@@ -9,4 +12,3 @@ namespace net6_bread_be.Models
 		public string Description { get; set; } = "";
 	}
 }
-
