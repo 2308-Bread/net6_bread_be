@@ -1,4 +1,4 @@
-﻿namespace net6_bread_be_tests;
+﻿namespace net6_bread_be_tests.Models;
 using net6_bread_be.Models;
 
 public class BreadTests
@@ -20,3 +20,4 @@ public class BreadTests
         Assert.Equal("World", bread.Description);
     }
 }
+
