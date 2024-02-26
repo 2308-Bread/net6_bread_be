@@ -103,74 +103,37 @@ public class BreadTests
         Assert.Single(validationResults);
         Assert.Equal("Description is required", validationResults[0].ErrorMessage);
     }
+
+    [Fact]
+    public void BreadSadPathId()
+    {
+        Bread bread = new Bread
+        {
+            Name = "You",
+            Recipe = "Work",
+            Description = "Words"
+        };
+
+        Bread bread2 = new Bread
+        {
+            Name = "Bread2",
+            Recipe = "Love",
+            Description = "spelt wrong"
+        };
+
+        var validationContext = new ValidationContext(bread, serviceProvider: null, items: null);
+        var validationResults = new List<ValidationResult>();
+        bool isValid = Validator.TryValidateObject(bread, validationContext, validationResults, validateAllProperties: true);
+
+        //not passing it an explicit value auto assigns 0 to the Id
+        Assert.Equal(0, bread.BreadId);
+        //Assert.Equal(1, bread2.BreadId);
+
+        Assert.Equal("You", bread.Name);
+        Assert.Equal("Work", bread.Recipe);
+        Assert.Equal("Words", bread.Description);
+
+        Assert.True(isValid);
+        Assert.Empty(validationResults);
+    }
 }
-// This is start of GPT code below
-//{
-//    public class CountryTests
-//    {
-//        [Fact]
-//        public void ValidModelShouldPassValidation()
-//        {
-//            // Arrange
-//            var country = new Country
-//            {
-//                CountryId = 1,
-//                Name = "Valid Name",
-//                Description = "Valid Description"
-//            };
-
-//            // Act
-//            var validationContext = new ValidationContext(country, serviceProvider: null, items: null);
-//            var validationResults = new List<ValidationResult>();
-//            bool isValid = Validator.TryValidateObject(country, validationContext, validationResults, validateAllProperties: true);
-
-//            // Assert
-//            Assert.True(isValid);
-//            Assert.Empty(validationResults);
-//        }
-
-//        [Fact]
-//        public void ModelWithInvalidNameShouldFailValidation()
-//        {
-//            // Arrange
-//            var country = new Country
-//            {
-//                CountryId = 1,
-//                Name = "", // Invalid: Empty Name
-//                Description = "Valid Description"
-//            };
-
-//            // Act
-//            var validationContext = new ValidationContext(country, serviceProvider: null, items: null);
-//            var validationResults = new List<ValidationResult>();
-//            bool isValid = Validator.TryValidateObject(country, validationContext, validationResults, validateAllProperties: true);
-
-//            // Assert
-//            Assert.False(isValid);
-//            Assert.Single(validationResults);
-//            Assert.Equal("Name is require", validationResults[0].ErrorMessage);
-//        }
-
-//        [Fact]
-//        public void ModelWithInvalidDescriptionShouldFailValidation()
-//        {
-//            // Arrange
-//            var country = new Country
-//            {
-//                CountryId = 1,
-//                Name = "Valid Name",
-//                Description = "" // Invalid: Empty Description
-//            };
-
-//            // Act
-//            var validationContext = new ValidationContext(country, serviceProvider: null, items: null);
-//            var validationResults = new List<ValidationResult>();
-//            bool isValid = Validator.TryValidateObject(country, validationContext, validationResults, validateAllProperties: true);
-
-//            // Assert
-//            Assert.False(isValid);
-//            Assert.Single(validationResults);
-//            Assert.Equal("Description is required", validationResults[0].ErrorMessage);
-//        }
-//    }
-//}
