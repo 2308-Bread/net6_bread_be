@@ -82,7 +82,7 @@ We are creating this API using .NET and in Rails. Running Load Tests on each of 
 
 ## Set up the Microsoft Environment 
 
-1. Install [C# and .NET 8](https://dotnet.microsoft.com/en-us/download)
+1. Install [C# and .NET 6](https://dotnet.microsoft.com/en-us/download) - The other repo is using .NET 8
 
 2. Install Azure Data Studio && MS SQL Sever [here](https://learn.microsoft.com/en-us/sql/azure-data-studio/download-azure-data-studio?view=sql-server-ver16)
 
