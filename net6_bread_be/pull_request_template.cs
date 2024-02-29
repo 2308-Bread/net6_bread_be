@@ -1,4 +1,4 @@
-﻿using System.Core;
+using System.Core;
 
 ## What kind of change does this PR introduce?
 - [ ] Bug fix (non-breaking change which fixes an issue)
