@@ -7,22 +7,28 @@ using System.Threading.Tasks;
 
 namespace net6_bread_be.Controllers
 {
-    [ApiController]
-    [Route("[controller]")]
-    public class BreadController : ControllerBase
+    [ApiController] //this has API behaviors
+    [Route("[controller]")] //this is defining routes
+    public class BreadController : ControllerBase //inherits from controllerbase
     {
-        private readonly BreadTrackerContext _context;
+        private readonly BreadTrackerContext _context; //holds the db context and can't be modified elsewhere (readonly)
 
-        public BreadController(BreadTrackerContext context)
+        public BreadController(BreadTrackerContext context) //receives an instance and assigns it
         {
-            _context = context;
+            _context = context; //interacts with database
         }
 
         // GET: /Bread
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Bread>>> GetAllBreads()
         {
-            return await _context.Breads.ToListAsync();
+            var breads = await _context.Breads.ToListAsync();
+            if (!breads.Any())
+            {
+                return NotFound(); // Or return an empty list with Ok(new List<Bread>()) if that's preferred
+            }
+
+            return Ok(breads); // Ensure wrapping the result with Ok()
         }
 
         // GET: /Bread/{id}
@@ -36,7 +42,7 @@ namespace net6_bread_be.Controllers
                 return NotFound();
             }
 
-            return bread;
+            return Ok(bread); // Explicitly return an OkObjectResult with the bread item
         }
 
     }
