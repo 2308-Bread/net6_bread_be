@@ -29,9 +29,4 @@
       <LastGenOutput>pull_request_template.cs</LastGenOutput>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Compile Update="pull_request_template.cs">
-      <DependentUpon>pull_request_template.md</DependentUpon>
-    </Compile>
-  </ItemGroup>
 </Project>

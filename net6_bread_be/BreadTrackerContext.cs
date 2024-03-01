@@ -9,14 +9,13 @@ using System.Threading.Tasks;
 
 namespace net6_bread_be
 {
-	public class BreadTrackerContext : DbContext
-	{
-		public DbSet<Bread>? Breads { get; set; }
-		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    public class BreadTrackerContext : DbContext
+    {
+        public DbSet<Bread>? Breads { get; set; }
 
-		{
-			optionsBuilder.UseNpgsql("Host=localhost;Username=postgres;Password=password123;Database=breadDb").UseSnakeCaseNamingConvention();
-		}
-	}
+        public BreadTrackerContext(DbContextOptions<BreadTrackerContext> options)
+            : base(options)
+        {
+        }
+    }
 }
-
