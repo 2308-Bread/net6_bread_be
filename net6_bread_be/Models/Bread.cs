@@ -11,5 +11,8 @@ namespace net6_bread_be.Models
         public string Recipe { get; set; } = "";
         [Required(ErrorMessage = "Description is required")]
         public string Description { get; set; } = "";
-	}
+        [Required(ErrorMessage = "Country ID is required")]
+        public int CountryId { get; set; }
+
+    }
 }
