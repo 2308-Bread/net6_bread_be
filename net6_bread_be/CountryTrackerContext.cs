@@ -11,12 +11,17 @@ namespace net6_bread_be
 {
 	public class CountryTrackerContext : DbContext
     {
-        public DbSet<Bread>? Countries { get; set; }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public DbSet<Country>? Countries { get; set; }
 
+        public CountryTrackerContext(DbContextOptions<CountryTrackerContext> options)
+           : base(options)
         {
-            optionsBuilder.UseNpgsql("Host=localhost;Username=postgres;Password=password123;Database=net6_bread_be").UseSnakeCaseNamingConvention();
         }
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+
+        //{
+        //    optionsBuilder.UseNpgsql("Host=localhost;Username=postgres;Password=password123;Database=net6_bread_be").UseSnakeCaseNamingConvention();
+        //}
     }
 }
 
