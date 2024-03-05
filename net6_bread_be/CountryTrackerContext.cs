@@ -15,7 +15,7 @@ namespace net6_bread_be
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 
         {
-            optionsBuilder.UseNpgsql("Host=localhost;Username=postgres;Password=password123;Database=breadDb").UseSnakeCaseNamingConvention();
+            optionsBuilder.UseNpgsql("Host=localhost;Username=postgres;Password=password123;Database=net6_bread_be").UseSnakeCaseNamingConvention();
         }
     }
 }

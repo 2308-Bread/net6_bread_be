@@ -25,10 +25,10 @@ namespace net6_bread_be.Controllers
             var breads = await _context.Breads.ToListAsync();
             if (!breads.Any())
             {
-                return NotFound(); // Or return an empty list with Ok(new List<Bread>()) if that's preferred
+                return NotFound(); 
             }
 
-            return Ok(breads); // Ensure wrapping the result with Ok()
+            return Ok(breads); // wraps the result with Ok()
         }
 
         // GET: /Bread/{id}
@@ -42,7 +42,7 @@ namespace net6_bread_be.Controllers
                 return NotFound();
             }
 
-            return Ok(bread); // Explicitly return an OkObjectResult with the bread item
+            return Ok(bread); //  return an OkObjectResult with the bread item
         }
 
     }
