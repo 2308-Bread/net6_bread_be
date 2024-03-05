@@ -17,11 +17,6 @@ namespace net6_bread_be
            : base(options)
         {
         }
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-
-        //{
-        //    optionsBuilder.UseNpgsql("Host=localhost;Username=postgres;Password=password123;Database=net6_bread_be").UseSnakeCaseNamingConvention();
-        //}
     }
 }
 
