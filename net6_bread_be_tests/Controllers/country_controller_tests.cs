@@ -15,8 +15,8 @@ public class CountryControllerTests
     public async Task GetAllCountries_ReturnAllCountries_WithInMemoryDatabse()
     {
         //Arrange
-        var dbName = $"TestDatabase_{Guid.NewGuid()}";
-        var options = new DbContextOptionsBuilder<CountryTrackerContext>().UseInMemoryDatabase(databaseName: dbName).Options;
+        //var dbName = $"TestDatabase_{Guid.NewGuid()}";
+        var options = new DbContextOptionsBuilder<CountryTrackerContext>().UseInMemoryDatabase(databaseName: "CountryDatabase").Options;
 
         //Add Seeded data into the InMemory db
         using (var context = new CountryTrackerContext(options))
@@ -48,6 +48,52 @@ public class CountryControllerTests
             Assert.Collection(countries,
                 country => Assert.Equal("Scotland", country.Name),
                 Country => Assert.Equal("America", Country.Name));
+        }
+    }
+
+    [Fact]
+    public async Task GetCountryById()
+    {
+        //Arrange -- We created a new dbName here as a sttring. The dbName doesn't seem to matter. 
+        var options = new DbContextOptionsBuilder<CountryTrackerContext>().UseInMemoryDatabase(databaseName: "CountryDatabase").Options;
+
+        //Add Seeded data into the InMemory db
+        //using (var context = new CountryTrackerContext(options))
+        //{
+        //    context.Countries.Add(new Country { CountryId = 1, Name = "Scotland", Description = "Land of the Scots" });
+        //    context.Countries.Add(new Country { CountryId = 2, Name = "America", Description = "Land of the Free" });
+        //    await context.SaveChangesAsync();
+        //}
+
+        using (var context = new CountryTrackerContext(options))
+        {
+            var controller = new CountryController(context);
+            var result = await controller.GetCountryById(1);
+
+            var actionResult = Assert.IsType<ActionResult<Country>>(result);
+            var okResult = Assert.IsType<OkObjectResult>(actionResult.Result);
+            var country = Assert.IsType<Country>(okResult.Value);
+
+            Assert.Equal(1, country.CountryId);
+            Assert.Equal("Scotland", country.Name);
+            Assert.Equal("Land of the Scots", country.Description);
+        }
+    }
+
+    [Fact]
+    public async Task GetCountryByIdSadPath()
+    {
+        //Arrange
+        var options = new DbContextOptionsBuilder<CountryTrackerContext>().UseInMemoryDatabase(databaseName: "CountryDatabase").Options;
+
+        //No need to seed this db since we are using the previous tests db
+
+        using (var context = new CountryTrackerContext(options))
+        {
+            var controller = new CountryController(context);
+            var result = await controller.GetCountryById(999); // This id doesn't exist
+
+            Assert.IsType<NotFoundResult>(result.Result);
         }
     }
 }
