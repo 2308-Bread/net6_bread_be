@@ -41,7 +41,7 @@ public class CountryControllerTests
             Assert.NotNull(actionResult.Result);
 
             var okResult = Assert.IsType<OkObjectResult>(actionResult.Result);
-            var countries = Assert.IsAssignableFrom<IEnumerable<Country>>(okResult.Value);
+            var countries = Assert.IsAssignableFrom<IEnumerable<Country>>(okResult.Value); // Using IsAssignableFrom when we are working with an IEnumerable
 
             //Now we can assert the specific details about the countries
             Assert.Equal(2, countries.Count());
@@ -57,20 +57,15 @@ public class CountryControllerTests
         //Arrange -- We created a new dbName here as a sttring. The dbName doesn't seem to matter. 
         var options = new DbContextOptionsBuilder<CountryTrackerContext>().UseInMemoryDatabase(databaseName: "CountryDatabase").Options;
 
-        //Add Seeded data into the InMemory db
-        //using (var context = new CountryTrackerContext(options))
-        //{
-        //    context.Countries.Add(new Country { CountryId = 1, Name = "Scotland", Description = "Land of the Scots" });
-        //    context.Countries.Add(new Country { CountryId = 2, Name = "America", Description = "Land of the Free" });
-        //    await context.SaveChangesAsync();
-        //}
+        // Not adding seed to db since we are inheriting the "CountryDatabase"
 
+        // Act & Assert
         using (var context = new CountryTrackerContext(options))
         {
             var controller = new CountryController(context);
             var result = await controller.GetCountryById(1);
 
-            var actionResult = Assert.IsType<ActionResult<Country>>(result);
+            var actionResult = Assert.IsType<ActionResult<Country>>(result); // Using the .IsType here because we are working with one instance of a country.
             var okResult = Assert.IsType<OkObjectResult>(actionResult.Result);
             var country = Assert.IsType<Country>(okResult.Value);
 
@@ -86,8 +81,9 @@ public class CountryControllerTests
         //Arrange
         var options = new DbContextOptionsBuilder<CountryTrackerContext>().UseInMemoryDatabase(databaseName: "CountryDatabase").Options;
 
-        //No need to seed this db since we are using the previous tests db
+        // Not adding seed to db since we are inheriting the "CountryDatabase"
 
+        // Act & Assert
         using (var context = new CountryTrackerContext(options))
         {
             var controller = new CountryController(context);
