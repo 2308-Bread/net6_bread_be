@@ -10,10 +10,15 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//CountryTrackerContext
+builder.Services.AddDbContext<CountryTrackerContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("BreadDbConnection"))
+        .UseSnakeCaseNamingConvention());
+
+//BreadTrackerContext
 builder.Services.AddDbContext<BreadTrackerContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("BreadDbConnection"))
            .UseSnakeCaseNamingConvention());
-
 
 var app = builder.Build();
 
