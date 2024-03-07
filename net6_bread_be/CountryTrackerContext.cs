@@ -12,6 +12,7 @@ namespace net6_bread_be
 	public class CountryTrackerContext : DbContext
     {
         public DbSet<Country>? Countries { get; set; }
+        public DbSet<Bread>? Breads { get; set; }
 
         public CountryTrackerContext(DbContextOptions<CountryTrackerContext> options)
            : base(options)
