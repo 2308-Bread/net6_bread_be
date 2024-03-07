@@ -4,6 +4,7 @@ using net6_bread_be;
 using net6_bread_be.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace net6_bread_be.Controllers
 {
@@ -45,5 +46,36 @@ namespace net6_bread_be.Controllers
             return Ok(country); // Explicitly return an OkObjectResult with the bread item
         }
 
+        // GET: /Country/{id}   <-- This method will replace the method above. I'm just work shopping here.
+        [HttpGet("/testing/{id}")]
+        public async Task<IActionResult> GetCountryAndBreads(int id)
+        {
+            var country = await _context.Countries.FindAsync(id);
+
+            if (country == null)
+            {
+                return NotFound();
+            }
+
+            var breads = await _context.Breads.Where(b => b.CountryId == id).ToListAsync();
+
+            var result = new
+            {
+                Country = new
+                {
+                    country.CountryId,
+                    country.Name,
+                    country.Description
+                },
+                Bread = breads.Select(b => new
+                {
+                    b.BreadId,
+                    b.Name,
+                    b.Recipe,
+                    b.Description
+                })
+            };
+            return Ok(result);
+        }
     }
 }
